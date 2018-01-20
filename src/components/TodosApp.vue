@@ -1,8 +1,8 @@
 <template>
   <section class="section">
       <div class="container">
-        <div class="columns">
-          <div class="column is-4 is-offset-4">
+        <div class="columns is-centered">
+          <div class="column is-5">
             <new-todo-input/>
             <br>
             <todos/>

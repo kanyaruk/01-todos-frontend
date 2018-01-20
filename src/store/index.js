@@ -24,6 +24,9 @@ export const store = new Vuex.Store({
     },
     TOGGLE_TODO (state, index) {
       state.todos[index].completed = !state.todos[index].completed
+    },
+    CLEAR_COMPELETED_TODO (state) {
+      state.todos = state.todos.filter(todo => todo.completed === false)
     }
   },
   actions: {
@@ -38,11 +41,16 @@ export const store = new Vuex.Store({
     },
     line ({commit}, index) {
       commit('TOGGLE_TODO', index)
+    },
+    clearCompeleted ({commit}) {
+      commit('CLEAR_COMPELETED_TODO')
     }
   },
   getters: {
     todos: state => state.todos,
     visibility: state => state.visibility,
-    count: state => state.todos.length
+    count: state => state.todos.length,
+    countActives: state => state.todos.filter(todo => todo.completed === false).length,
+    countCompleted: state => state.todos.filter(todo => todo.completed === true).length
   }
 })
