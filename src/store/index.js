@@ -57,7 +57,7 @@ export const store = new Vuex.Store({
     },
     load ({commit}) {
       let todos = localStorage.getItem('todos')
-      if (todos !== '') {
+      if (todos != null) {
         commit('LOAD', JSON.parse(todos))
       }
     }
