@@ -56,8 +56,10 @@ export const store = new Vuex.Store({
       localStorage.setItem('todos', JSON.stringify(state.todos))
     },
     load ({commit}) {
-      var todos = localStorage.getItem('todos')
-      commit('LOAD', JSON.parse(todos))
+      let todos = localStorage.getItem('todos')
+      if (todos !== '') {
+        commit('LOAD', JSON.parse(todos))
+      }
     }
   },
   getters: {
