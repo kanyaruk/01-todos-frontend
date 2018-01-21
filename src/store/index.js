@@ -27,23 +27,37 @@ export const store = new Vuex.Store({
     },
     CLEAR_COMPELETED_TODO (state) {
       state.todos = state.todos.filter(todo => todo.completed === false)
+    },
+    LOAD (state, todos) {
+      state.todos = todos
     }
   },
   actions: {
-    addTodo ({commit}, title) {
+    addTodo ({commit, dispatch}, title) {
       commit('ADD_TODO', title)
+      dispatch('save')
     },
     changeVisibility ({commit}, newVisibilityValue) {
       commit('CHANGE_VISIBILITY', newVisibilityValue)
     },
-    deleteTodo ({commit}, index) {
+    deleteTodo ({commit, dispatch}, index) {
       commit('DELETE_TODO', index)
+      dispatch('save')
     },
-    line ({commit}, index) {
+    line ({commit, dispatch}, index) {
       commit('TOGGLE_TODO', index)
+      dispatch('save')
     },
-    clearCompeleted ({commit}) {
+    clearCompeleted ({commit, dispatch}) {
       commit('CLEAR_COMPELETED_TODO')
+      dispatch('save')
+    },
+    save ({state}) {
+      localStorage.setItem('todos', JSON.stringify(state.todos))
+    },
+    load ({commit}) {
+      var todos = localStorage.getItem('todos')
+      commit('LOAD', JSON.parse(todos))
     }
   },
   getters: {
