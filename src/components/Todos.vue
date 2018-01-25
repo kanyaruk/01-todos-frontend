@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-sortable="{onEnd: reorder}">
     <div v-for="(todo, index) in todos" :key="todo.title" v-show="(visibility === 'all') || (visibility === 'active' && todo.completed === false) || (visibility === 'completed' && todo.completed === true)">
       <b-field class="is-pulled-left">
         <b-checkbox  @input="line(index)" size="is-large" v-bind:class="{ 'line': todo.completed }">{{ todo.title }}</b-checkbox>
@@ -21,7 +21,8 @@ export default {
     ...mapActions([
       'deleteTodo',
       'line',
-      'load'
+      'load',
+      'reorder'
     ])
   },
   created () {

@@ -30,6 +30,10 @@ export const store = new Vuex.Store({
     },
     LOAD (state, todos) {
       state.todos = todos
+    },
+    REORDER (state, {oldIndex, newIndex}) {
+      const movedItem = state.todos.splice(oldIndex, 1)[0]
+      state.todos.splice(newIndex, 0, movedItem)
     }
   },
   actions: {
@@ -60,6 +64,9 @@ export const store = new Vuex.Store({
       if (todos != null) {
         commit('LOAD', JSON.parse(todos))
       }
+    },
+    reorder ({commit}, {oldIndex, newIndex}) {
+      commit('REORDER', {oldIndex, newIndex})
     }
   },
   getters: {
